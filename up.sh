@@ -24,6 +24,16 @@ docker-compose -f infra/docker-compose.yaml exec web python manage.py collectsta
 
 if [ $y = 'y' ] || [ $y = 'yes' ] || [ $y = 'Y' ] || [ $y = 'Yes' ] || [ $y = 'YES' ]
 then
-    echo ' == Importing sample data. == '
+    echo ' == Importing sample data == '
     docker-compose -f infra/docker-compose.yaml exec web python3 manage.py loaddata fixtures.json
 fi
+
+read -p 'Create super user? [y/n] (n): ' s
+if [ $s = 'y' ] || [ $s = 'yes' ] || [ $s = 'Y' ] || [ $s = 'Yes' ] || [ $s = 'YES' ]
+then
+    echo ' == Creating super user == '
+    docker-compose -f infra/docker-compose.yaml exec web python3 manage.py createsuperuser
+fi
+
+echo ' == Project api_yamdb up an running =='
+echo 'Now admin site acessible at http://localhost/admin'

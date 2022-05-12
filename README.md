@@ -7,47 +7,65 @@
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-git clone https://github.com/Offlinexaa/api_yamdb.git
+git clone https://github.com/Offlinexaa/infra_sp2.git
 ```
 
 ```
-cd api_yamdb
+cd infra_sp2/
 ```
 
-Cоздать и активировать виртуальное окружение:
+Заполнить файл infra/.env (пример заполнения ниже). Для примера используется редактор nano:
 
 ```
-python3 -m venv venv
+nano infra/.env
 ```
 
-```
-source venv/bin/activate
-```
+Добавить пользователя в группу docker или предоставить права суперпользователя.
 
 ```
-python3 -m pip install --upgrade pip setuptools pillow
-```
+usermod -a -G docker <current_user_name>
 
-Установить зависимости из файла requirements.txt:
-
-```
-pip install -r requirements.txt
-```
-
-Подготовить и выполнить миграции:
-
-```
-python3 manage.py makemigrations
-```
-
-```
-python3 manage.py migrate
+systemctl reload docker.service
 ```
 
 Запустить проект:
 
 ```
-python3 manage.py runserver
+sh up.sh
+```
+
+Будет выполнена проверка на отсутствие незаполненных переменных в .env. После проверки вам будет предложена возможность импортировать демонстрационный образец данных. После запуска контейнеров так же будет предложено создать учётную запись суперпользователя Django.
+
+В демонстрационных данных имеется преднастроенный пользователь с парой логин/пароль: admin/admin
+
+Проект доступен по ссылке:
+
+```
+http://localhost/ или http://<your_external_ip>/
+```
+
+### Требования и пример заполнения файла .env
+
+Файл .env должен содержать следующие переменные:
+
+```
+DB_ENGINE - драйвер СУБД для Django
+DB_NAME - имя базы данных для api_yamdb
+POSTGRES_USER - имя пользователя, владельца базы данных или администратора СУБД
+POSTGRES_PASSWORD - пароль пользователя из предыдущего пункта
+BD_HOST - имя хоста (docker-контейнера)
+DB_PORT - порт для подключения к базе данных
+```
+
+Пример заполнения значениями по умолчанию:
+
+```
+DB_ENGINE=django.db.backends.postgresql
+DB_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+BD_HOST=db
+DB_PORT=5432
 ```
 
 ### Документация доступна по ссылке:
@@ -58,19 +76,9 @@ http://127.0.0.1:8000/redoc/
 
 ### Требования:
 
-Python 3.7 или выше
+Docker 20.10.14
 
-Django framework 2.2.16
-
-Django Rest framework 3.12.4
-
-requests 2.26.0
-
-PyJWT 2.1.0
-
-Django Rest framework simplejwt
-
-django_filter
+docker-compose 1.25.0
 
 ### Над проектом работали:
 
