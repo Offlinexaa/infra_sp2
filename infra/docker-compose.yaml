@@ -15,8 +15,7 @@ services:
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
-      - ../fixtures.json:/app/fixtures.json
-    command: -c "chown root:root fixtures.json && chmod =666 fixtures.json"
+      - ../fixtures.json:/app/fixtures.json:Z
     depends_on:
       - db
     env_file:
