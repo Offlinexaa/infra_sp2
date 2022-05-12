@@ -44,6 +44,22 @@ sh up.sh
 http://localhost/ или http://<your_external_ip>/
 ```
 
+### Импорт данных вручную
+
+Для импорта демонстрационных данных воспользуйтесь командой
+
+```
+docker-compose -f infra/docker-compose.yaml exec web python3 manage.py loaddata fixtures.json
+```
+
+### Создание суперпользователя вручную
+
+Для создания суперпользователя вручную воспользуйтесь командой
+
+```
+docker-compose -f infra/docker-compose.yaml exec web python3 manage.py createsuperuser
+```
+
 ### Требования и пример заполнения файла .env
 
 Файл .env должен содержать следующие переменные:
@@ -71,7 +87,7 @@ DB_PORT=5432
 ### Документация доступна по ссылке:
 
 ```
-http://127.0.0.1:8000/redoc/
+http://localhost/redoc/
 ```
 
 ### Требования:
@@ -80,7 +96,7 @@ Docker 20.10.14
 
 docker-compose 1.25.0
 
-### Над проектом работали:
+### Над проектом api_yamdb работали:
 
 Александр Харин (Offlinexaa) - реализация моделей, логики и api: токены, авторизация и пользователи 
 
