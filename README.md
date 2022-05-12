@@ -24,7 +24,6 @@ nano infra/.env
 
 ```
 usermod -a -G docker <current_user_name>
-
 systemctl reload docker.service
 ```
 
