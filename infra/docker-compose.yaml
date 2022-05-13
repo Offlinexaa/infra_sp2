@@ -10,12 +10,11 @@ services:
       - ./.env
 
   web:
-    image: offlinexaa/api_yamdb:1.0.0-latest
+    image: offlinexaa/api_yamdb:1.0.1-latest
     restart: always
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
-      - ../fixtures.json:/app/fixtures.json:Z
     depends_on:
       - db
     env_file:
